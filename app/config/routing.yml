@@ -1,0 +1,14 @@
+<<<<<<< HEAD
+sgdng_rest:
+    resource: "@SgdngRestBundle/Resources/config/routing.yml"
+    prefix:   /
+    type:     rest
+=======
+sgdng_api:
+    resource: "@SgdngApiBundle/Resources/config/routing.yml"
+    prefix:   /
+>>>>>>> 685af67722e72c8d9a02ddc0efb03520845421d9
+
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+  prefix:   /api/doc

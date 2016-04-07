@@ -1,0 +1,3 @@
+dependencia:
+    type: rest
+    resource: Sgdng\ApiBundle\Controller\DependenciaController

@@ -1,0 +1,7 @@
+dependencia:
+    type: rest
+    resource: Sgdng\RestBundle\Controller\DependenciaController
+
+entiad:
+    type: rest
+    resource: Sgdng\RestBundle\Controller\EntidadController
