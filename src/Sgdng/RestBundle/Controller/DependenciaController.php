@@ -9,10 +9,47 @@ use FOS\RestBundle\Util\Codes;
 use Symfony\Component\HttpFoundation\Request;
 use Sgdng\RestBundle\Entity\Dependencia;
 use Sgdng\RestBundle\Form\DependenciaType;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
+/**
+ * Rest controller para Dependencias
+ *
+ * @package Sgdng\RestBundle\Controller
+ * @author Jorge Alberto Arocha Munoz <jorge.arocha@gmail.com>
+ */
 
 class DependenciaController extends FOSRestController implements ClassResourceInterface
 {
 	/**
+     * Muestra la colección de dependencias. Devuelve un objeto de la forma:
+     * 
+     * {
+     *     "dependencias":
+     *       [
+     *         {
+     *           "id": ​int,
+     *           "sigla": string,
+     *           "nombre": string,
+     *           "color": string,
+     *           "hijo":
+     *             [
+     *               Dependencias Hijo
+     *             ]
+     *           "padre": { Dependencia padre} 
+     *          "entidad" : { Entgidad a la que pertenece}
+     *           },
+      *        ....   
+     *       ]
+     *   }
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Devuelve un listado de las dependencias.",
+     *  statusCodes = {
+     *    200 = "Es retornado cuando la dependencia se encuentra"
+     *  } 
+     * )
+     * 
      * Collection get action
      * @var Request $request
      * @return array
@@ -31,6 +68,41 @@ class DependenciaController extends FOSRestController implements ClassResourceIn
     }
 
     /**
+     *  Muestra una determinada dependencia. Devuelve un objeto de la forma:
+     * 
+     * {
+     *     "dependencia":
+     *       [
+     *         {
+     *           "id": ​int,
+     *           "sigla": string,
+     *           "nombre": string,
+     *           "color": string,
+     *           "hijo":
+     *             [
+     *               Dependencias Hijo
+     *             ]
+     *           "padre": { Dependencia padre} 
+     *          "entidad" : { Entgidad a la que pertenece}
+     *           }
+     *       ]
+     *   }
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Devuelve una dependencias identificada por su Id.",
+     *  output = "Sgdng\RestBundle\Entity\Dependencia",
+     *  statusCodes = {
+     *    200 = "Es retornado cuando la dependencia se encuentra",
+     *    404 = "Es retornado cuando no se encuentra la dependencia"
+     *  } ,
+     *   requirements={
+     *      { "name"="id", "dataType"="integer", "requirement"="\d+", "description"="id de la Dependencia." }
+     *   }
+     * )
+     * 
+     * @param int     $id      Id de la Dependencia
+     *
      * Get action
      * @var integer $id Id of the entity
      * @return array
@@ -47,6 +119,18 @@ class DependenciaController extends FOSRestController implements ClassResourceIn
     }
 
     /**
+     *
+     * Crea una nueva dependencia.
+     *
+     * @ApiDoc(
+     *  description="Crea una nueva dependencia.",
+     *  input="Sgdng\RestBundle\Form\DependenciaType",
+     *  output="Sgdng\RestBundle\Form\Dependencia",
+     *  statusCodes = {
+     *    201 = "Es retornado cuando la dependencia es creada sin errores."
+     *  } 
+     * )
+     * 
      * Collection post action
      * @var Request $request
      * @return View|array
@@ -77,6 +161,18 @@ class DependenciaController extends FOSRestController implements ClassResourceIn
     }
 
     /**
+     * 
+     * Modifica una depoendencia derterminada por su id.
+     * 
+     * @ApiDoc(
+     *  description="Modifica una dependencia, determinanda por su id.",
+     *  input="Sgdng\RestBundle\Form\DependenciaType",
+     *  output="Sgdng\RestBundle\Form\Dependencia",
+     *  statusCodes = {
+     *    204 = "Es retornado cuando la dependencia es actualizada sin errores."
+     *  } 
+     * )
+     * 
      * Put action
      * @var Request $request
      * @var integer $id Id of the entity
@@ -102,6 +198,20 @@ class DependenciaController extends FOSRestController implements ClassResourceIn
     }
 
     /**
+     *
+     * Elimina la Dependencia determinada por el Id.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   statusCodes={
+     *     204="Es retornado cuando se eliminadsa la dependencia  "
+     *   },
+     *   requirements={
+     *      { "name"="id", "dataType"="integer", "requirement"="\d+", "description"="id de la Dependencia a eliminar" }
+     *   }
+     * )
+     *
+     *
      * Delete action
      * @var integer $id Id of the entity
      * @return View
